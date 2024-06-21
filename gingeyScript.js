@@ -1,38 +1,19 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    const images = [
-        'image1.jpg',
-        'image2.jpg',
-        'image3.jpg',
-        'image4.jpg',
-        'image5.jpg',
-        'image6.jpg',
-        'image7.jpg',
-        'image8.jpg',
-        'image9.jpg',
-        'image10.jpg'
-    ];
-
     const gallery = document.getElementById('gallery');
-
-    // Shuffle array function (Fisher-Yates shuffle algorithm)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+    
+    // Function to fetch images from a folder
+    function fetchImages(folderPath, numImages) {
+        for (let i = 1; i <= numImages; i++) {
+            const imageElement = document.createElement('div');
+            imageElement.classList.add('image');
+            const imageUrl = `${folderPath}/image${i}.jpg`; // Assuming images are named image1.jpg, image2.jpg, etc.
+            imageElement.innerHTML = `<img src="${imageUrl}" alt="Memory">`;
+            gallery.appendChild(imageElement);
         }
-        return array;
     }
 
-    // Shuffle images array
-    const shuffledImages = shuffleArray(images);
-
-    // Display shuffled images
-    shuffledImages.slice(0, 10).forEach(image => {
-        const imageElement = document.createElement('div');
-        imageElement.classList.add('image');
-        imageElement.innerHTML = `<img src="${image}" alt="Memory">`;
-        gallery.appendChild(imageElement);
-    });
+    // Call fetchImages with your folder path and number of images to display
+    fetchImages('images', 10); // 'images' is the folder where your images are located, and 10 is the number of images to display
 });
